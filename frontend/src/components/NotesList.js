@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { format } from 'timeago.js'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 export default class NotesList extends Component {
 
@@ -20,8 +21,11 @@ export default class NotesList extends Component {
 
     async deleteNote(id){
         await axios.delete(`http://localhost:4000/api/notes/${id}`);
+        
         this.getNotes();
+        toast.success('Se eliminó una nota', { icon: '😟' });
     }
+
 
     render() {
         return (

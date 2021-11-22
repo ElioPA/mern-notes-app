@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
 
 export default class CreateUser extends Component {
 
@@ -30,11 +31,13 @@ export default class CreateUser extends Component {
         });
         this.setState({username: ''});
         this.getUsers();
+        toast.success('Se creó un nuevo usuario');
     }
 
     deleteUser = async id => {
         await axios.delete(`http://localhost:4000/api/users/${id}`);
         this.getUsers();
+        toast.error('Se eliminó un usuario', { icon: '😟' });
     }
 
     render() {
@@ -49,6 +52,7 @@ export default class CreateUser extends Component {
                                     className="form-control"
                                     onChange={this.onChangeUsename}
                                     value={this.state.username}
+                                    required
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary">

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { toast } from 'react-hot-toast'
 
 export default class CreateNote extends Component {
     
@@ -50,8 +51,10 @@ export default class CreateNote extends Component {
         }
         if(this.state.editing){
             await axios.put('http://localhost:4000/api/notes/' + this.state._id, newNote);
+            toast.success(`Se editó una nota de ${this.state.userSelected}`, { icon: '✏' });
         } else{
             await axios.post('http://localhost:4000/api/notes', newNote);
+            toast.success('Se creó una nueva nota');
         } 
         this.props.history.push('/');
     }
@@ -114,7 +117,7 @@ export default class CreateNote extends Component {
                                 />
                         </div>
 
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" >
                             Save
                         </button>
                     </form>
